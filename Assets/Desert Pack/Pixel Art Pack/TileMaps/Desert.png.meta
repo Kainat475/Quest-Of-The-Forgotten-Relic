@@ -710,6 +710,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tree_without_rocks_copy2
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 0
+        width: 31
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1c1a20a3c29afe47ad03a539ac640ca
+      internalID: 707881115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -744,6 +765,7 @@ TextureImporter:
       Tree_with_rocks_2: 1379630247
       Tree_without_rock_1: 1455042069
       Tree_without_rock_2: 930996795
+      Tree_without_rocks_copy2: 707881115
       Warning_Sign_Right: -768096330
       Warning_Sign_left: -351725183
       Weed_0: 2113884334
