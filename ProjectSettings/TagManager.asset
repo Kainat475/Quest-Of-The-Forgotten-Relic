@@ -10,6 +10,7 @@ TagManager:
   - SandWorm_10
   - PowerUp
   - Relic
+  - SafeZone_Kainat
   layers:
   - Default
   - TransparentFX

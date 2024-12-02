@@ -36,6 +36,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float powerUpTimer = 0.0f;
     [SerializeField] private float powerUp_maxTime = 3f;
 
+    [Header("Cinemachine Settings")]
+    [SerializeField] private KainatEarthQuakeScript vCam_cameraShake_script;
+
     string playerHealthDecrease_color1Hexa = "#FFA2A2";
     string playerHealthDecrease_color2Hexa = "#FF7878";
     Color c1, c2;
@@ -156,6 +159,10 @@ public class PlayerScript : MonoBehaviour
         {
             powerUpCollected = true;
             powerUpCollectedAnimationsAndSounds();
+        }
+        else if(collision.CompareTag("SafeZone_Kainat"))
+        {
+            vCam_cameraShake_script.StopShake();
         }
     }
 

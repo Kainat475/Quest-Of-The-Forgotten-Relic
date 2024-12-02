@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using Cinemachine;
 
 public class KainatRelicScript : MonoBehaviour
 {
     [SerializeField] private Animator relicAnimator;
     [SerializeField] private SpriteRenderer spriteRenderer; // Drag the object with SpriteRenderer here
+
+    [Header("Cinemachine Settings")]
+    [SerializeField] private KainatEarthQuakeScript vCam_cameraShake_script;
+
+    [Header("SafeZoneTrigger Settings")]
+    [SerializeField] private Collider2D safeZoneTrigger;
 
     private string color1Hexa = "#F9DED3";
     private string color2Hexa = "#F9A989";
@@ -52,6 +59,8 @@ public class KainatRelicScript : MonoBehaviour
             StartCoroutine(KainatUIManager.Instance.addDelayThenDisappear(1f, gameObject));
 
             KainatUIManager.Instance.relicCollected();
+            vCam_cameraShake_script.StartShake(10f);     // Starting Shaking once the relic is collected
+            safeZoneTrigger.enabled = true;
         }
     }
 }

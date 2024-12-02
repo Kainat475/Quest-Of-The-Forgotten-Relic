@@ -64,11 +64,11 @@ public class KainatUIManager : MonoBehaviour
         // to play more than one animation together
         DG.Tweening.Sequence sequence = DOTween.Sequence();
 
-        sequence.Join(damageText.transform.DOScale(Vector3.zero, 1f).SetEase(Ease.InOutQuad));
+        sequence.Join(damageText.transform.DOScale(Vector3.zero, 1.25f).SetEase(Ease.InOutQuad));
 
         Color originalColor = damageText.color;
         sequence.Join(DOTween.To( () => originalColor.a, alpha => 
-        damageText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha), 0f, 1f));
+        damageText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha), 0f, 1.25f));
 
         sequence.OnComplete(() => resetDamageTextProperties(originalColor)); 
     }
@@ -101,7 +101,9 @@ public class KainatUIManager : MonoBehaviour
     {
         dangerPanelImage.DOFade(0f, 1f).From(0.40f)
                 .SetEase(Ease.InQuad);
-        dangerPanel.SetActive(false);
+        //dangerPanel.SetActive(false);
+        StartCoroutine(addDelayThenDisappear(1.2f, dangerPanel));
+        // Call the camera shakeStop functin after this to stop earthquake
     }
 
     public IEnumerator addDelayThenDisappear(float delay, GameObject toDisappear = null)
@@ -116,11 +118,11 @@ public class KainatUIManager : MonoBehaviour
     private void AnimateWarning()
     {
         // Loop between two colors indefinitely
-        relicActivatedText.DOColor(Color.red, 0.5f)
+        relicActivatedText.DOColor(Color.red, 0.35f)
             .SetEase(Ease.InOutSine)
             .OnComplete(() =>
             {
-                relicActivatedText.DOColor(Color.black, 0.5f)
+                relicActivatedText.DOColor(Color.black, 0.35f)
                     .SetEase(Ease.InOutSine)
                     .OnComplete(AnimateWarning);
             });
