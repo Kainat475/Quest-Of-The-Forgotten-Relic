@@ -117,7 +117,7 @@ public class PlayerScript : MonoBehaviour
         }
 
         // run animation enabler
-        if (Mathf.Abs(rb_player.velocity.x) > 0.00001 && playerMove != 0)
+        if (Mathf.Abs(rb_player.velocity.x) > 0.00000001 && playerMove != 0)
         {
             playerAnimator.SetBool("run", true);
         }
@@ -151,6 +151,16 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(ShowDamage());
             decreaseHealth(10);
         }
+        else if (collision.collider.CompareTag("ice"))
+        {
+            StartCoroutine(ShowDamage());
+            decreaseHealth(5);
+        }
+        else if (collision.collider.CompareTag("bats"))
+        {
+            StartCoroutine(ShowDamage());
+            decreaseHealth(2);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -169,12 +179,12 @@ public class PlayerScript : MonoBehaviour
     bool isGroundeded()
     {
         // Cast a ray downwards to check for ground
-        float raylength = 1.5f; // Adjust based on character collider size
+        float raylength = 2f; // Adjust based on character collider size
         LayerMask ground = LayerMask.GetMask("Ground"); // Ensure "Ground" layer exists
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, raylength, ground);
 
         // Debug ray to visualize in the Scene view
-        //Debug.DrawRay(transform.position, Vector2.down * raylength, Color.yellow);
+        Debug.DrawRay(transform.position, Vector2.down * raylength, Color.yellow);
 
         // Return true if raycast hits ground
         bool answer = (hit.collider != null);

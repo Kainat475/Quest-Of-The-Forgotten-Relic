@@ -11,6 +11,10 @@ TagManager:
   - PowerUp
   - Relic
   - SafeZone_Kainat
+  - ice
+  - bats
+  - platform
+  - powerup
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Player
   - 
   - 
   - 
