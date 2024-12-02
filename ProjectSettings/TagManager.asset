@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Platform
   - Water
+  - SandWorm_5
+  - SandWorm_10
+  - PowerUp
+  - Relic
   layers:
   - Default
   - TransparentFX
