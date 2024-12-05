@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e286aaa77b1a8374a961f864bb3ebf09
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Enemies/Slimer-Idle/slimer-idle1.controller
+  uploadId: 540939

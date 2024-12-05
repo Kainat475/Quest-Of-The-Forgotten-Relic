@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e8a6ca64e1f82844bb105a28813530f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/player/idle/Idle-Animation.anim
+  uploadId: 540939

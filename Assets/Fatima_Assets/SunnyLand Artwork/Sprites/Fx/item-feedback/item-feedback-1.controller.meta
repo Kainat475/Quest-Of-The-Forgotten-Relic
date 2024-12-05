@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf5428b50f9b8ef4095e5bf4d06b83a5
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Fx/item-feedback/item-feedback-1.controller
+  uploadId: 540939

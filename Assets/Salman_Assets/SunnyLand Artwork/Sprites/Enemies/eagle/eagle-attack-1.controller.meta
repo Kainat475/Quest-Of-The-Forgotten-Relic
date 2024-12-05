@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: c0d14ab123cb7ce4eaf5c7d9c763c7d1
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Enemies/eagle/eagle-attack-1.controller
+  uploadId: 540939

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 856260f95433ca042b3c54c45d6c421f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Enemies/Eagle Dive Attack/attack1.controller
+  uploadId: 540939

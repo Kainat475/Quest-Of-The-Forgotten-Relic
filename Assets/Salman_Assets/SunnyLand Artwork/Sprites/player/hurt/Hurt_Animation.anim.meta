@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d0a79140b8adccc4aacb5a76b1f16907
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/player/hurt/Hurt_Animation.anim
+  uploadId: 540939

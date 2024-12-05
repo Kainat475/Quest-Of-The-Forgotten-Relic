@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e619d443319fd504b885acb7cd05e744
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Fx/enemy-death/enemy-death-1.controller
+  uploadId: 540939

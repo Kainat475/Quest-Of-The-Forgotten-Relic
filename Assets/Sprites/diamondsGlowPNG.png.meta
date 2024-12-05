@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blue Gem
+      name: Salman_Relic
       rect:
         serializedVersion: 2
         x: 521
@@ -143,6 +143,90 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Areeb_Relic
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 446
+        width: 63
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23758fb7dd4fc854ca0763adedfd1bd6
+      internalID: 957482949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fatima_Relic
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 246
+        width: 63
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46dc9321e20c3d84abe428d5d12cab91
+      internalID: 1217418421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kainat_Relic
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 144
+        width: 63
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b03fb2f3b1ba77245b9992b9f6f70600
+      internalID: -1124804078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Daniyal_Relic
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 45
+        width: 63
+        height: 89
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca6c3deac0492434fbefcc00e85b1b64
+      internalID: -440626931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -154,7 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blue Gem: -1675399898
+      Areeb_Relic: 957482949
+      Daniyal_Relic: -440626931
+      Fatima_Relic: 1217418421
+      Kainat_Relic: -1124804078
+      Salman_Relic: -1675399898
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

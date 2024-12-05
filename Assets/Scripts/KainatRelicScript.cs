@@ -15,8 +15,8 @@ public class KainatRelicScript : MonoBehaviour
     [Header("SafeZoneTrigger Settings")]
     [SerializeField] private Collider2D safeZoneTrigger;
 
-    private string color1Hexa = "#F9DED3";
-    private string color2Hexa = "#F9A989";
+    private string color1Hexa = "#EFD071";
+    private string color2Hexa = "#F9EECB";
     [SerializeField] private Color color1;
     [SerializeField] private Color color2;
     [SerializeField] private float animationDuration = 1f;
@@ -59,7 +59,7 @@ public class KainatRelicScript : MonoBehaviour
             StartCoroutine(KainatUIManager.Instance.addDelayThenDisappear(1f, gameObject));
 
             KainatUIManager.Instance.relicCollected();
-            vCam_cameraShake_script.StartShake(10f);     // Starting Shaking once the relic is collected
+            vCam_cameraShake_script.StartShake();     // Starting Shaking once the relic is collected
             safeZoneTrigger.enabled = true;
         }
     }

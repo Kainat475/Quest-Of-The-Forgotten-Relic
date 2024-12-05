@@ -11,18 +11,18 @@ public class KainatEarthQuakeScript : MonoBehaviour
     void Awake()
     {
         cinemachineVirtualCamera = GetComponent<CinemachineVirtualCamera>();
+        //StartShake();
     }
 
-    public void StartShake(float intensity)
+    public void StartShake()
     {
         var noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        
-        noise.m_AmplitudeGain = intensity;
+        noise.m_AmplitudeGain = 1f;
     }
 
     public void StopShake()
     {
         var noise = cinemachineVirtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
-        noise.m_AmplitudeGain = 1f;
+        noise.m_AmplitudeGain = 0f;
     }
 }

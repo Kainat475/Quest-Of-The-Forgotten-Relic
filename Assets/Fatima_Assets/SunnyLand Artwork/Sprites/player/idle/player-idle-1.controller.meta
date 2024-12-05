@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 28af2c00c3afabe49b2e254e78f0e2c0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/player/idle/player-idle-1.controller
+  uploadId: 540939

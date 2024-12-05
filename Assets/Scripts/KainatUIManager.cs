@@ -4,12 +4,17 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static DG.DemiLib.DeToggleColors;
 
 public class KainatUIManager : MonoBehaviour
 {
     public static KainatUIManager Instance;
+
+    [Header("Fade Animation Screens")]
+    [SerializeField] private GameObject FadePanel;
+    private Image fadeImage;
 
     [Header("Show Damage Taken Points")]
     [SerializeField] private TextMeshProUGUI damageText;
@@ -21,14 +26,20 @@ public class KainatUIManager : MonoBehaviour
     [SerializeField] private GameObject dangerPanel;
     [SerializeField] private Image dangerPanelImage;
 
+    [Header("Level End Screen Components")]
+    [SerializeField] GameObject LevelEndPanel;
+    [SerializeField] GameObject textBox1;
+    [SerializeField] GameObject textBox2;
+    [SerializeField] GameObject textBox3;
+    [SerializeField] GameObject textBox4;
+
     [Header("Audio Related Components")]
     public AudioSource audioSource;
     public AudioClip hurtAudio;
     public AudioClip powerUpAudio;
     public AudioClip jumpAudio;
     public AudioClip deathAudio;
-    public AudioClip walkAudio;
-    
+    public AudioClip walkAudio;    
 
     // This is called when the script is loaded or a value is changed in the editor
     private void Awake()
@@ -41,19 +52,24 @@ public class KainatUIManager : MonoBehaviour
         }
         else
         {
-            // Destroy this instance if one already exists (ensures there is only one)
+            // Destroy this instance if one already exists (this ensures there is only one)
             Destroy(gameObject);
         }
     }
 
     void Start()
     {
+        LevelEndPanel.SetActive(false);
+
+        fadeImage = FadePanel.GetComponent<Image>();
+        fadeImage.DOFade(0f, 1f).SetEase(Ease.InOutSine);
+
         damageText.text = "";
         damageTextScale = damageText.transform.localScale;
 
         dangerPanelImage = dangerPanel.GetComponent<Image>();
         //relicCollected();
-        AnimateWarning();
+        //AnimateWarning();
     }
 
     public void showDamageText(float damage)
@@ -97,6 +113,11 @@ public class KainatUIManager : MonoBehaviour
                 .SetEase(Ease.InQuad);
     }
 
+    public void relicCollected_Areeb()
+    {
+        relicImage.SetActive(true);
+    }
+
     public void dangerAverted()
     {
         dangerPanelImage.DOFade(0f, 1f).From(0.40f)
@@ -128,6 +149,60 @@ public class KainatUIManager : MonoBehaviour
             });
     }
 
+    public void level2Ended()
+    {
+        fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        StartCoroutine(displayDialogueBoxes());
+        //LevelEndPanel.SetActive(true);
+        //fadeImage.DOFade(0f, 1f).SetEase(Ease.InOutSine);
+        //StartCoroutine(addDelayThenDisappear(1f));  
+    }
+
+    public void level3Ended()
+    {
+        fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        StartCoroutine(displayDialogueBoxes());  
+    }
+
+    public void level4Ended()
+    {
+        fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        SceneManager.LoadScene(3);
+    }
+
+    IEnumerator displayDialogueBoxes()
+    {
+        yield return new WaitForSeconds(1F);
+        LevelEndPanel.SetActive(true);
+        fadeImage.DOFade(0f, 1f).SetEase(Ease.InOutSine);
+
+        textBox1.SetActive(true);
+        yield return new WaitForSeconds(2F);
+        textBox1.SetActive(false);
+        yield return new WaitForSeconds(0.5F);
+
+        //StartCoroutine(displayDialogueBox(textBox2, 2f, 0.5f));
+        textBox2.SetActive(true);
+        yield return new WaitForSeconds(2F);
+        textBox2.SetActive(false);
+        yield return new WaitForSeconds(0.5F);
+
+        //StartCoroutine(displayDialogueBox(textBox3, 2f, 0.5f));
+        textBox3.SetActive(true);
+        yield return new WaitForSeconds(2F);
+        textBox3.SetActive(false);
+        yield return new WaitForSeconds(0.5F);
+
+        //StartCoroutine(displayDialogueBox(textBox4, 2f, 2f));
+        textBox4.SetActive(true);
+        yield return new WaitForSeconds(2F);
+        textBox4.SetActive(false);
+        yield return new WaitForSeconds(2F);
+
+        fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        yield return new WaitForSeconds(2F);
+        SceneManager.LoadScene(5);
+    }
 
     // ----------------------------------------------------------------------- //
     //                              Audio Functions                            //

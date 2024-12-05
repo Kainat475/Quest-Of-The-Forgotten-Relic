@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6e38f7d6bfed94745afbbac2254d601a
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 9100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 103349
+  packageName: Sunny Land
+  packageVersion: 1.1
+  assetPath: Assets/SunnyLand Artwork/Sprites/Enemies/Vulture/vulture1.controller
+  uploadId: 540939

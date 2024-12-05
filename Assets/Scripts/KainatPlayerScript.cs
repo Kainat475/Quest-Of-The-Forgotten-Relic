@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,9 +12,11 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private Rigidbody2D rb_player;
     [SerializeField] private Collider2D collider_player;
     [SerializeField] private Animator playerAnimator;
-    [SerializeField] private Vector3 playerScale; 
+    [SerializeField] private Vector3 playerScale;
+    [SerializeField] private Transform playerTransform;
     [SerializeField] private float playerMove;
     [SerializeField] private SpriteRenderer playerRenderer;
+    [SerializeField] private float dialoguePositionX;
 
     [Header("Player Health Settings")]
     [SerializeField] private Image playerHealthSprite;
@@ -34,10 +37,22 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private bool powerUpCollected = false;
     [SerializeField] private float powerUpTimer = 0.0f;
-    [SerializeField] private float powerUp_maxTime = 3f;
+    [SerializeField] private float powerUp_maxTime = 7f;
+
+    [Header("Areeb Power Up Settings")]
+    [SerializeField] private bool Areeb_powerUpCollected = false;
 
     [Header("Cinemachine Settings")]
     [SerializeField] private KainatEarthQuakeScript vCam_cameraShake_script;
+
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioPlayer;
+
+    [Header("Level End Settings")]
+    [SerializeField] private Collider2D levelEndTrigger;
+
+    [Header("Safe ZoneTrigger Settings")]
+    [SerializeField] private Collider2D safeZoneTrigger;
 
     string playerHealthDecrease_color1Hexa = "#FFA2A2";
     string playerHealthDecrease_color2Hexa = "#FF7878";
@@ -46,9 +61,12 @@ public class PlayerScript : MonoBehaviour
     string powerUp_postColor_Hexa = "#B9B9B9";
     Color powerUp_postColor;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
+        playerTransform = GetComponent<Transform>();
         playerRenderer = GetComponent<SpriteRenderer>();
         collider_player = GetComponent<Collider2D>();
 
@@ -86,18 +104,31 @@ public class PlayerScript : MonoBehaviour
             playerSpeed = defaultSpeed;
         }
 
+        // Areeb PowerUp Functionality
+        if(Areeb_powerUpCollected)
+        {
+            powerUpTimer += Time.deltaTime;
+            if(powerUpTimer >= powerUp_maxTime)
+            {
+                Areeb_powerUpCollected = false;
+                powerUpTimer = 0.0f;
+            }
+        }
+
         // Flip character sprite based on movement direction
         if (playerMove > 0)
         {
             // left direction facing
             transform.localScale = new Vector3(Mathf.Abs(playerScale.x), playerScale.y, playerScale.z);
-            KainatUIManager.Instance.playWalkAudio();
+            playerAnimator.SetBool("run", true);
+            //KainatUIManager.Instance.playWalkAudio();
         }
         else if (playerMove < 0)
         {
             // right direction facing
             transform.localScale = new Vector3(-Mathf.Abs(playerScale.x), playerScale.y, playerScale.z);
-            KainatUIManager.Instance.playWalkAudio();
+            playerAnimator.SetBool("run", true);
+            //KainatUIManager.Instance.playWalkAudio();
         }
 
         // Jumping Functionality
@@ -128,7 +159,10 @@ public class PlayerScript : MonoBehaviour
 
         // Checking if player still has health
         if (playerHealthSprite.fillAmount <= 0)
-            gameOver();
+        {
+            audioPlayer.Stop();
+            gameOver(); 
+         }
     }
 
     // Dealing with Player Movement in this function
@@ -151,7 +185,12 @@ public class PlayerScript : MonoBehaviour
             StartCoroutine(ShowDamage());
             decreaseHealth(10);
         }
-        else if (collision.collider.CompareTag("ice"))
+        else if (collision.collider.CompareTag("Relic"))
+        {
+            safeZoneTrigger.enabled = true;
+            levelEndTrigger.enabled = true;
+        }        
+        else if (collision.collider.CompareTag("ice") && !Areeb_powerUpCollected)
         {
             StartCoroutine(ShowDamage());
             decreaseHealth(5);
@@ -172,7 +211,34 @@ public class PlayerScript : MonoBehaviour
         }
         else if(collision.CompareTag("SafeZone_Kainat"))
         {
+            levelEndTrigger.enabled = true;
             vCam_cameraShake_script.StopShake();
+            KainatUIManager.Instance.dangerAverted();
+            audioPlayer.Stop();
+            StopCoroutine(addDelayBeforeContinuingAudio());
+        }
+        else if (collision.CompareTag("LevelEndTrigger"))
+        {
+            audioPlayer.Stop();
+            KainatUIManager.Instance.level2Ended();
+            // Stopping player once level end reached
+            playerAnimator.SetBool("run", false);
+            audioPlayer.Play();
+            this.enabled = false;
+        }
+        else if(collision.CompareTag("PowerUp_Areeb"))
+        {
+            Debug.Log("Areeb Power Up Picked Up");
+            Areeb_powerUpCollected = true;
+            powerUpCollectedAnimationsAndSounds();
+        }
+        else if (collision.CompareTag("Relic_Areeb"))
+        {
+            audioPlayer.Stop();
+            KainatUIManager.Instance.level3Ended();
+            playerAnimator.SetBool("run", false);
+            audioPlayer.Play();
+            this.enabled = false;
         }
     }
 
@@ -203,6 +269,11 @@ public class PlayerScript : MonoBehaviour
         KainatUIManager.Instance.showDamageText(damage);
     }
 
+    IEnumerator addDelayBeforeContinuingAudio()
+    {
+        yield return new WaitForSeconds(2f);
+        audioPlayer.Play();
+    }
     IEnumerator ShowDamage()
     {        
         playerRenderer.color = c1;
@@ -226,13 +297,14 @@ public class PlayerScript : MonoBehaviour
     public void gameOver()
     {
         KainatUIManager.Instance.playDeathAudio();
+        Time.timeScale = 0;
 
         // using unscaled time for animations while game over
         playerAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
         playerAnimator.SetTrigger("dead");
 
-        this.enabled = false;
-        collider_player.enabled = false ;
+        //collider_player.enabled = false;
+        this.enabled = false;        
     }
 
     private void powerUpCollectedAnimationsAndSounds()
@@ -245,11 +317,43 @@ public class PlayerScript : MonoBehaviour
     {
         playerRenderer.color = Color.white; 
         yield return new WaitForSeconds(0.1f);
+
         playerRenderer.color = powerUp_postColor;
         yield return new WaitForSeconds(0.1f);
 
         playerRenderer.color = Color.white;
         yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = powerUp_postColor;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = powerUp_postColor;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = powerUp_postColor;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = powerUp_postColor;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = powerUp_postColor;
+        yield return new WaitForSeconds(0.1f);
+
+        playerRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+
         playerRenderer.color = powerUp_postColor;
         yield return new WaitForSeconds(0.1f);
 
