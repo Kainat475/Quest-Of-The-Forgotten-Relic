@@ -15,6 +15,12 @@ TagManager:
   - bats
   - platform
   - powerup
+  - PowerUp_Areeb
+  - TopColliderTag
+  - SideColliderTag
+  - Tilemap
+  - LevelEndTrigger
+  - Relic_Areeb
   layers:
   - Default
   - TransparentFX
