@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Cinemachine.DocumentationSortingAttribute;
 using static DG.DemiLib.DeToggleColors;
 
 public class KainatUIManager : MonoBehaviour
@@ -14,7 +15,10 @@ public class KainatUIManager : MonoBehaviour
 
     [Header("Fade Animation Screens")]
     [SerializeField] private GameObject FadePanel;
-    private Image fadeImage;
+    [SerializeField] private Image fadeImage;
+
+    [Header("Pause Screen")]
+    [SerializeField] private GameObject pausePanel;
 
     [Header("Show Damage Taken Points")]
     [SerializeField] private TextMeshProUGUI damageText;
@@ -46,9 +50,7 @@ public class KainatUIManager : MonoBehaviour
     {
         if (Instance == null)
         {
-            Instance = this;
-            // This ensures that the UIManager persists across scenes
-            DontDestroyOnLoad(gameObject);
+            Instance = this;            
         }
         else
         {
@@ -57,12 +59,28 @@ public class KainatUIManager : MonoBehaviour
         }
     }
 
+    public static void DestroySingleton()
+    {
+        if (Instance != null)
+        {
+            Destroy(Instance.gameObject);
+            Instance = null;
+        }
+    }
+
     void Start()
     {
+        FadePanel.SetActive(true);
         LevelEndPanel.SetActive(false);
+        pausePanel.SetActive(false);
 
+        Debug.Log("Start called.");
         fadeImage = FadePanel.GetComponent<Image>();
         fadeImage.DOFade(0f, 1f).SetEase(Ease.InOutSine);
+        Debug.Log(fadeImage.color.a);
+        //FadePanel.SetActive(false);
+        StartCoroutine(addDelayThenDisappear(1, FadePanel));
+        Debug.Log(fadeImage.color.a);
 
         damageText.text = "";
         damageTextScale = damageText.transform.localScale;
@@ -149,8 +167,42 @@ public class KainatUIManager : MonoBehaviour
             });
     }
 
+    public void pauseGame()
+    {
+        Time.timeScale = 0;
+        pausePanel.SetActive(true);
+    }
+
+    public void resumeGame()
+    {
+        pausePanel.SetActive(false);
+        Time.timeScale = 1;        
+    }
+
+    public void returnToMainMenu()
+    {
+        Debug.Log("Main menu called");
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+        //FadePanel.SetActive(true);
+        //fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        //StartCoroutine(addDelayBeforeRestartingLevel(0));
+    }
+
+    public void restartLevel()
+    {
+        Debug.Log("restart called");
+        Time.timeScale = 1;
+        //FadePanel.SetActive(true);
+        //fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
+        int sceneNum = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(sceneNum);
+        //StartCoroutine(addDelayBeforeRestartingLevel(sceneNum));
+    }
+
     public void level2Ended()
     {
+        FadePanel.SetActive(true);
         fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
         StartCoroutine(displayDialogueBoxes());
         //LevelEndPanel.SetActive(true);
@@ -160,14 +212,22 @@ public class KainatUIManager : MonoBehaviour
 
     public void level3Ended()
     {
+        FadePanel.SetActive(true);
         fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
         StartCoroutine(displayDialogueBoxes());  
     }
 
     public void level4Ended()
     {
+        FadePanel.SetActive(true);
         fadeImage.DOFade(1f, 1f).SetEase(Ease.InOutSine);
         SceneManager.LoadScene(3);
+    }
+
+    IEnumerator addDelayBeforeRestartingLevel(int levelID)
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(levelID);
     }
 
     IEnumerator displayDialogueBoxes()
